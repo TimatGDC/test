@@ -63,7 +63,7 @@ jobs:
             critical=$(echo "$result" | jq '[.[] | select(.severity == "Critical")]')
 
             # Add the heading to the summary
-            # echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
+            echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
 
             # Display each category with emojis
             if [[ $Medium != "[]" ]]; then
