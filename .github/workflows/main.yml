@@ -53,8 +53,51 @@ jobs:
 
       - name: Run whispers with jq
         run: |
-          result=$(whispers --xrules file-known . --xseverity Low,Info --config ../test/config.yml | jq .)
-          echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          echo "$result" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+            result=$(whispers --xrules file-known . --xseverity Low,Info --config ../test/config.yml | jq .)
+
+            # Parse the JSON result into categories based on severity
+            low=$(echo "$result" | jq '[.[] | select(.severity == "Low")]')
+            info=$(echo "$result" | jq '[.[] | select(.severity == "Info")]')
+            medium=$(echo "$result" | jq '[.[] | select(.severity == "Medium")]')
+            high=$(echo "$result" | jq '[.[] | select(.severity == "High")]')
+            critical=$(echo "$result" | jq '[.[] | select(.severity == "Critical")]')
+
+            # Add the heading to the summary
+            # echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
+
+            # Display each category with emojis
+            if [[ $Medium != "[]" ]]; then
+            echo "#### 🔵 Low Severity" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            echo "$low" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+
+            if [[ $info != "[]" ]]; then
+            echo "#### 🟢 Info Severity" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            echo "$info" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+
+            if [[ $medium != "[]" ]]; then
+            echo "#### 🟡 Medium Severity" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            echo "$medium" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+
+            if [[ $high != "[]" ]]; then
+            echo "#### 🔴 High Severity" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            echo "$high" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+
+            if [[ $high != "[]" ]]; then
+            echo "#### 🚨 Critical Severity" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            echo "$critical" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+    
