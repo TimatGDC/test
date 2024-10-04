@@ -65,6 +65,8 @@ jobs:
             # Add the heading to the summary
             echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
 
+            echo "$result" >> $GITHUB_STEP_SUMMARY
+
             # Display each category with emojis
             if [[ $Medium != "[]" ]]; then
             echo "#### 🔵 Low Severity" >> $GITHUB_STEP_SUMMARY
