@@ -1,0 +1,60 @@
+name: Run whispers on push
+
+on:
+  push:
+    branches:
+      - "**"  # Exécute l'action sur toutes les branches
+
+jobs:
+  run-whispers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install whispers and jq
+        run: |
+          pip install whispers
+          sudo apt-get update && sudo apt-get install -y jq
+          - name: Create config.yml
+          run: |
+            echo "ast: false" > ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "include:" >> ../test/config.yml
+            echo "  files:" >> ../test/config.yml
+            echo "    - \"**/*\"" >> ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "exclude:" >> ../test/config.yml
+            echo "  files:" >> ../test/config.yml
+            echo "    - .*(__pycache__|\.eggs|build|dev|\.vscode|\.git)" >> ../test/config.yml
+            echo "    - .*(locale|lang(uage)?|spec|test|mock(ing)?|synthetic|dummy|fixture|example|e2e)s?" >> ../test/config.yml
+            echo "    - .*(integration|node_modules)" >> ../test/config.yml
+            echo "    - .*(package(-lock)?|npm-shrinkwrap)\.json" >> ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "  keys:" >> ../test/config.yml
+            echo "    - .*(public|project|translation|row|col(umn)?|uniq(ue)?).*" >> ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "  values:" >> ../test/config.yml
+            echo "    - ^(true|false|yes|no|on|off|secret|(en|dis)able|1|0)$" >> ../test/config.yml
+            echo "    - ^((cn?trl|alt|shift|del|ins|esc|tab|f[\\d]+) ?[\\+_\\-\\\\/] ?)+[\\w]+$" >> ../test/config.yml
+            echo "    - .*_(user|password|token|key|placeholder|name)$" >> ../test/config.yml
+            echo "    - ^(aws_)?(access_key_id|secret_access_key|session_token|secretsmanager)$" >> ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "    # pour les variables \$(aws" >> ../test/config.yml
+            echo "    - ^(\\$\\(\\s*aws)$" >> ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "    # pour les variables #/<...>" >> ../test/config.yml
+            echo "    - ^(^#\\/.*)$" >> ../test/config.yml
+            echo "" >> ../test/config.yml
+            echo "    # pour les variables \$(<...>" >> ../test/config.yml
+            echo "    - ^(^\\$\\(.*)$" >> ../test/config.yml
+
+      - name: Run whispers with jq
+        run: |
+          result=$(whispers --xrules file-known . --xseverity Low,Info --config ../test/config.yml | jq .)
+          echo "$result" >> $GITHUB_STEP_SUMMARY
+          echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          echo "$result" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
