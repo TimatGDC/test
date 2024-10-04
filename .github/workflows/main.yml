@@ -72,9 +72,9 @@ jobs:
                 _jq() {
                 echo ${row} | base64 --decode | jq -r ${1}
                 }
-                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
-                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
-                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "_File:_ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "_Line:_ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "_Value:_ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
             done
             fi
@@ -85,9 +85,9 @@ jobs:
                 _jq() {
                 echo ${row} | base64 --decode | jq -r ${1}
                 }
-                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
-                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
-                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "_File:_ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "_Line:_ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "_Value:_ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
             done
             fi
@@ -98,9 +98,9 @@ jobs:
                 _jq() {
                 echo ${row} | base64 --decode | jq -r ${1}
                 }
-                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
-                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
-                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "_File:_ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "_Line:_ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "_Value:_ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
             done
             fi
@@ -111,9 +111,9 @@ jobs:
                 _jq() {
                 echo ${row} | base64 --decode | jq -r ${1}
                 }
-                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
-                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
-                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "_File:_ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "_Line:_ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "_Value:_ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
             done
             fi
@@ -124,9 +124,9 @@ jobs:
                 _jq() {
                 echo ${row} | base64 --decode | jq -r ${1}
                 }
-                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
-                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
-                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "_File:_ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "_Line:_ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "_Value:_ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
                 echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
             done
             fi
