@@ -65,41 +65,69 @@ jobs:
             # Add the heading to the summary
             echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
 
-            echo "$result" >> $GITHUB_STEP_SUMMARY
-
             # Display each category with emojis
-            if [[ $Medium != "[]" ]]; then
+            if [[ $low != "[]" ]]; then
             echo "#### 🔵 Low Severity" >> $GITHUB_STEP_SUMMARY
-            echo '```json' >> $GITHUB_STEP_SUMMARY
-            echo "$low" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            for row in $(echo "${low}" | jq -r '.[] | @base64'); do
+                _jq() {
+                echo ${row} | base64 --decode | jq -r ${1}
+                }
+                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
+            done
             fi
 
             if [[ $info != "[]" ]]; then
             echo "#### 🟢 Info Severity" >> $GITHUB_STEP_SUMMARY
-            echo '```json' >> $GITHUB_STEP_SUMMARY
-            echo "$info" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            for row in $(echo "${info}" | jq -r '.[] | @base64'); do
+                _jq() {
+                echo ${row} | base64 --decode | jq -r ${1}
+                }
+                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
+            done
             fi
 
             if [[ $medium != "[]" ]]; then
             echo "#### 🟡 Medium Severity" >> $GITHUB_STEP_SUMMARY
-            echo '```json' >> $GITHUB_STEP_SUMMARY
-            echo "$medium" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            for row in $(echo "${medium}" | jq -r '.[] | @base64'); do
+                _jq() {
+                echo ${row} | base64 --decode | jq -r ${1}
+                }
+                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
+            done
             fi
 
             if [[ $high != "[]" ]]; then
-            echo "#### 🔴 High Severity" >> $GITHUB_STEP_SUMMARY
-            echo '```json' >> $GITHUB_STEP_SUMMARY
-            echo "$high" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "#### 🟠 High Severity" >> $GITHUB_STEP_SUMMARY
+            for row in $(echo "${high}" | jq -r '.[] | @base64'); do
+                _jq() {
+                echo ${row} | base64 --decode | jq -r ${1}
+                }
+                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
+            done
             fi
 
-            if [[ $high != "[]" ]]; then
-            echo "#### 🚨 Critical Severity" >> $GITHUB_STEP_SUMMARY
-            echo '```json' >> $GITHUB_STEP_SUMMARY
-            echo "$critical" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
+            if [[ $critical != "[]" ]]; then
+            echo "#### 🔴 Critical Severity" >> $GITHUB_STEP_SUMMARY
+            for row in $(echo "${critical}" | jq -r '.[] | @base64'); do
+                _jq() {
+                echo ${row} | base64 --decode | jq -r ${1}
+                }
+                echo "__File:__ $(_jq '.file')" >> $GITHUB_STEP_SUMMARY
+                echo "__Line:__ $(_jq '.line')" >> $GITHUB_STEP_SUMMARY
+                echo "__Value:__ $(_jq '.value')" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY # Ajouter une ligne vide pour l'espacement
+            done
             fi
     
