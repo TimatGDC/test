@@ -54,7 +54,6 @@ jobs:
       - name: Run whispers with jq
         run: |
           result=$(whispers --xrules file-known . --xseverity Low,Info --config ../test/config.yml | jq .)
-          echo "$result" >> $GITHUB_STEP_SUMMARY
           echo "### Whispers Result" >> $GITHUB_STEP_SUMMARY
           echo '```json' >> $GITHUB_STEP_SUMMARY
           echo "$result" >> $GITHUB_STEP_SUMMARY
